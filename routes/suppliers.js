@@ -11,12 +11,18 @@ router.get('/', (req, res) =>{
     ]
   })
   .then(suppliers =>{
-         //res.send(suppliers);
-        // console.log('------', transaksi[1].Parking_spot.spot_name)
-        res.render('suppliers', {dataSuppliers: suppliers})
+    models.Item.findAll()
+    .then(items=>{
+      models.SupplierItem.findAll()
+      .then(supplierItem=>{
+      //res.send(transaksi);
+      // console.log('------', transaksi[1].Parking_spot.spot_name)
+        res.render('suppliers', {dataSuppliers: suppliers, dataItems: items, dataSuppliersItems: supplierItem})
+      })
+    })
   })
   .catch(err =>{
-    console.log(err);
+  res.send(err);
   })
 })
 
@@ -85,5 +91,7 @@ router.get('/delete/:id', (req,res) => {
     res.send(err)
   })
 })
+
+
 
 module.exports = router;

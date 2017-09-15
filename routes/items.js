@@ -6,14 +6,14 @@ var models = require('../models')
 
 
 router.get('/', (req, res) =>{
-  models.Suppliers.findAll({order:[
+  models.Item.findAll({order:[
       ['id', 'ASC']
     ]
   })
-  .then(suppliers =>{
-         //res.send(suppliers);
+  .then(items =>{
+         //res.send(items);
         // console.log('------', transaksi[1].Parking_spot.spot_name)
-        res.render('suppliers', {dataSuppliers: suppliers})
+        res.render('items', {dataItems: items})
   })
   .catch(err =>{
     console.log(err);
@@ -21,11 +21,11 @@ router.get('/', (req, res) =>{
 })
 
 router.get('/add', (req, res) =>{
-  models.Suppliers.findAll()
-  .then(suppliers =>{
-         //res.send(suppliers);
+  models.Item.findAll()
+  .then(items =>{
+         //res.send(items);
         // console.log('------', transaksi[1].Parking_spot.spot_name)
-        res.render('add_suppliers', {dataSuppliers: suppliers})
+        res.render('add_items', {dataItems: items})
   })
   .catch(err =>{
     console.log(err);
@@ -34,14 +34,15 @@ router.get('/add', (req, res) =>{
 
 
 router.post('/add', (req, res) => {
-  models.Suppliers.build({
-      nama: req.body.nama,
-      kota: req.body.kota
+  models.Item.build({
+      name: req.body.name,
+      brand: req.body.brand,
+      codeitem: req.body.codeitem
   })
   .save()
-  .then(dataSuppliers => {
+  .then(dataItems => {
     // res.send(rows)
-    res.redirect('/suppliers')
+    res.redirect('/items')
   })
   .catch(err =>{
     res.send(err)
@@ -50,9 +51,9 @@ router.post('/add', (req, res) => {
 
 
 router.get('/edit/:id', function(req, res) {
-  models.Suppliers.findById(req.params.id)
-  .then(suppliers=> {
-    res.render('edit_suppliers', {dataSuppliers: suppliers})
+  models.Item.findById(req.params.id)
+  .then(items=> {
+    res.render('edit_items', {dataItems: items})
   })
   .catch(err => {
     res.send(err)
@@ -60,14 +61,15 @@ router.get('/edit/:id', function(req, res) {
 });
 
 router.post('/edit/:id', function(req,res) {
-  models.Suppliers.update(
+  models.Item.update(
     {
-      nama: req.body.nama,
-      kota: req.body.kota
+      name: req.body.name,
+      brand: req.body.brand,
+      codeitem: req.body.codeitem
     },{ where: { id: req.params.id}
   })
-  .then(suppliers => {
-    res.redirect('/suppliers')
+  .then(items => {
+    res.redirect('/items')
   })
   .catch(err => {
     res.send(err)
@@ -75,11 +77,11 @@ router.post('/edit/:id', function(req,res) {
 })
 
 router.get('/delete/:id', (req,res) => {
-  models.Suppliers.destroy({
+  models.Item.destroy({
     where: {id:req.params.id}
   })
   .then(rows=> {
-    res.redirect('/suppliers')
+    res.redirect('/items')
   })
   .catch(err => {
     res.send(err)

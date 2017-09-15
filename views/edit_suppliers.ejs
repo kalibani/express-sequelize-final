@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Page</title>
+</head>
+<body>
+  <h1>Edit Data Suppliers</h1>
+  </td>
+  </tr>
+    </tbody>
+    </table>
+</body>
+<table border = '2px'>
+  <form action="/suppliers/edit/<%=dataSuppliers.id%>" method="post">
+    <label> nama : <input type="text" name="nama" placeholder="Plat No" value = "<%= dataSuppliers.nama%>"> </label>
+    <label> kota : <input type="text" name="kota" placeholder="Driver ID" value = "<%= dataSuppliers.kota%>"> </label>
+     <input type="submit" value="Save">
+  </form>
+</table>
+</html>
